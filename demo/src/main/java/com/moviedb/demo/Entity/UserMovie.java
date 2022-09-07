@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Table(name="user_movie")
 public class UserMovie {
     @Id
-    @Column(name="id",nullable = false)
+    @Column(name="movieid",nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     String username;

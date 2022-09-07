@@ -45,9 +45,9 @@ public class MovieDbController {
         return config;
     }
     @GetMapping("api/movie/{movie_id}")
-    public HashMap<String, Object> getPopularMovies(@AuthenticationPrincipal UserDetails user, @PathVariable Integer movie_id){
+    public HashMap<String, Object> getMovieById(@AuthenticationPrincipal UserDetails user, @PathVariable Integer movie_id){
 
-        UserMovie userMovie = userMovieRepository.findByUsernameAndMovie(user.getUsername(),movie_id).orElse(null);
+        UserMovie userMovie = userMovieRepository.findByUsernameAndMovie(user.getUsername(),movie_id.toString()).orElse(null);
         HashMap<String, Object> movie = movieDbService.getMovieById(movie_id);
 
         if(userMovie != null){
