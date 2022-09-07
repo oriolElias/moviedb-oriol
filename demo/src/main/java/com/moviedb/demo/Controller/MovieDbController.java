@@ -4,13 +4,15 @@ import com.moviedb.demo.Entity.UserMovie;
 import com.moviedb.demo.Repository.UserMovieRepository;
 import com.moviedb.demo.Service.MovieDbService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.function.EntityResponse;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 @RestController
 public class MovieDbController {
@@ -59,6 +61,25 @@ public class MovieDbController {
         return movie;
     }
 
+    @PatchMapping("api/movie/{movie_id}")
+    public ResponseEntity<UserMovie> putFavoritePersonalRatingNotes(@PathVariable Integer movie_id, @RequestBody UserMovie newUserMovie,@AuthenticationPrincipal UserDetails user){
+
+        //UserMovie updatedMovie = userMovieRepository.findById(movie_id).orElse(null);//patchUserMovie(movie_id,UserMovie);
+        UserMovie updatedMovie = userMovieRepository.findByUsernameAndMovie(user.getUsername(),movie_id.toString()).orElse(null);
+        if(updatedMovie == null){
+            updatedMovie = new UserMovie();
+        }
+        updatedMovie.setUsername(user.getUsername());
+        updatedMovie.setMovie(movie_id.toString());
+        updatedMovie.setFavorite(newUserMovie.getFavorite());
+        updatedMovie.setPersonal_rating(newUserMovie.getPersonal_rating());
+        updatedMovie.setNotes((newUserMovie.getNotes()));
+
+        userMovieRepository.save(updatedMovie);
+
+        return new ResponseEntity<UserMovie>(updatedMovie, HttpStatus.OK);
+    }
+
     @GetMapping("api/movie/{movie_id}/credits")
     public HashMap<String, Object> getCastAndCrew(@PathVariable Integer movie_id){
         HashMap<String, Object> config = movieDbService.getCastAndCrew(movie_id);
@@ -89,4 +110,6 @@ public class MovieDbController {
 
         return config;
     }
+
+
 }
