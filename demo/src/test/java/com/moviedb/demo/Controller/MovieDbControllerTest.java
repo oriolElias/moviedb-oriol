@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -119,7 +120,27 @@ class MovieDbControllerTest {
     }
 
     @Test
-    void getMovieById() {
+    @WithMockUser
+    void getMovieById() throws Exception {
+        HashMap<String, Object> resultFromGetConfig = new HashMap<>();
+        resultFromGetConfig.put("page",1);
+        resultFromGetConfig.put("total_pages",35032);
+        resultFromGetConfig.put("results",0);
+        resultFromGetConfig.put("total_results",35032);
+        Integer id = 550;
+
+
+        given(movieDbService.getMovieById(id)).willReturn(resultFromGetConfig);
+
+        ResultActions response = mockMvc.perform(get("/api/movie/{movie_id}",id));
+
+        response.andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.page",is(1)))
+                .andExpect(jsonPath("$.total_pages",is(35032)))
+                .andExpect(jsonPath("$.results",is(0)))
+                .andExpect(jsonPath("$.total_results",is(35032)))
+        ;
     }
 
     @Test
