@@ -129,7 +129,6 @@ class MovieDbControllerTest {
         resultFromGetConfig.put("total_results",35032);
         Integer id = 550;
 
-
         given(movieDbService.getMovieById(id)).willReturn(resultFromGetConfig);
 
         ResultActions response = mockMvc.perform(get("/api/movie/{movie_id}",id));
@@ -145,18 +144,69 @@ class MovieDbControllerTest {
 
     @Test
     void putFavoritePersonalRatingNotes() {
+        //TODO
     }
 
     @Test
-    void getCastAndCrew() {
+    void getCastAndCrew() throws Exception {
+        Integer id = 550;
+        HashMap<String, Object> resultFromGetConfig = new HashMap<>();
+        resultFromGetConfig.put("cast",1);
+        resultFromGetConfig.put("id",id);
+        resultFromGetConfig.put("crew",0);
+
+
+
+        given(movieDbService.getCastAndCrew(id)).willReturn(resultFromGetConfig);
+
+        ResultActions response = mockMvc.perform(get("/api/movie/{movie_id}/credits",id));
+
+        response.andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.cast",is(1)))
+                .andExpect(jsonPath("$.id",is(id)))
+                .andExpect(jsonPath("$.crew",is(0)))
+        ;
     }
 
     @Test
-    void getImages() {
+    void getImages() throws Exception {
+        Integer id = 550;
+        HashMap<String, Object> resultFromGetConfig = new HashMap<>();
+        resultFromGetConfig.put("backdrops",1);
+        resultFromGetConfig.put("posters",0);
+        resultFromGetConfig.put("id",id);
+        resultFromGetConfig.put("logos",0);
+
+        given(movieDbService.getAllImages(id)).willReturn(resultFromGetConfig);
+
+        ResultActions response = mockMvc.perform(get("/api/movie/{movie_id}/images",id));
+
+        response.andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.backdrops",is(1)))
+                .andExpect(jsonPath("$.posters",is(0)))
+                .andExpect(jsonPath("$.id",is(id)))
+                .andExpect(jsonPath("$.logos",is(0)))
+        ;
     }
 
     @Test
-    void getKeywords() {
+    void getKeywords() throws Exception {
+        Integer id = 550;
+        HashMap<String, Object> resultFromGetConfig = new HashMap<>();
+        resultFromGetConfig.put("keywords",1);
+        resultFromGetConfig.put("id",id);
+
+        given(movieDbService.getKeywords(id)).willReturn(resultFromGetConfig);
+
+        ResultActions response = mockMvc.perform(get("/api/movie/{movie_id}/keywords",id));
+
+        response.andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.keywords",is(1)))
+                .andExpect(jsonPath("$.id",is(id)))
+        ;
     }
 
     @Test
