@@ -64,7 +64,6 @@ public class MovieDbController {
     @PatchMapping("api/movie/{movie_id}")
     public ResponseEntity<UserMovie> putFavoritePersonalRatingNotes(@PathVariable Integer movie_id, @RequestBody UserMovie newUserMovie,@AuthenticationPrincipal UserDetails user){
 
-        //UserMovie updatedMovie = userMovieRepository.findById(movie_id).orElse(null);//patchUserMovie(movie_id,UserMovie);
         UserMovie updatedMovie = userMovieRepository.findByUsernameAndMovie(user.getUsername(),movie_id.toString()).orElse(null);
         if(updatedMovie == null){
             updatedMovie = new UserMovie();
