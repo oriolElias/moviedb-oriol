@@ -145,6 +145,7 @@ class MovieDbControllerTest {
     @Test
     void putFavoritePersonalRatingNotes() {
         //TODO
+        
     }
 
     @Test
@@ -210,10 +211,46 @@ class MovieDbControllerTest {
     }
 
     @Test
-    void getRecommendations() {
+    void getRecommendations() throws Exception {
+        Integer id = 550;
+        HashMap<String, Object> resultFromGetConfig = new HashMap<>();
+        resultFromGetConfig.put("page",1);
+        resultFromGetConfig.put("total_pages",35032);
+        resultFromGetConfig.put("results",0);
+        resultFromGetConfig.put("total_results",35032);
+
+        given(movieDbService.getRecommendations(id)).willReturn(resultFromGetConfig);
+
+        ResultActions response = mockMvc.perform(get("/api/movie/{movie_id}/recommendations",id));
+
+        response.andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.page",is(1)))
+                .andExpect(jsonPath("$.total_pages",is(35032)))
+                .andExpect(jsonPath("$.results",is(0)))
+                .andExpect(jsonPath("$.total_results",is(35032)))
+        ;
     }
 
     @Test
-    void getSimilar() {
+    void getSimilar() throws Exception {
+        Integer id = 550;
+        HashMap<String, Object> resultFromGetConfig = new HashMap<>();
+        resultFromGetConfig.put("page",1);
+        resultFromGetConfig.put("total_pages",35032);
+        resultFromGetConfig.put("results",0);
+        resultFromGetConfig.put("total_results",35032);
+
+        given(movieDbService.getSimilarMovies(id)).willReturn(resultFromGetConfig);
+
+        ResultActions response = mockMvc.perform(get("/api/movie/{movie_id}/similar",id));
+
+        response.andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.page",is(1)))
+                .andExpect(jsonPath("$.total_pages",is(35032)))
+                .andExpect(jsonPath("$.results",is(0)))
+                .andExpect(jsonPath("$.total_results",is(35032)))
+        ;
     }
 }
