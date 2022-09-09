@@ -15,12 +15,12 @@ public class MovieDbService {
     @Cacheable("configuration")
     public HashMap<String, Object> getConfig() {
 
-        try {
+        /*try {
             System.out.println("Going to sleep for 5 Secs.. to simulate backend call.");
             Thread.sleep(1000*5);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
 
         return webClient.get()
