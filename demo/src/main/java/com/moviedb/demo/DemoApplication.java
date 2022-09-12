@@ -13,11 +13,11 @@ import java.util.Arrays;
 
 
 @SpringBootApplication
-//@EnableCaching
+@EnableCaching
 //@Configuration
-@ClientCacheApplication(name = "CachingGemFireApplication")
-@EnableCachingDefinedRegions(clientRegionShortcut = ClientRegionShortcut.LOCAL)
-@EnableGemfireCaching
+//@ClientCacheApplication(name = "CachingGemFireApplication")
+//@EnableCachingDefinedRegions(clientRegionShortcut = ClientRegionShortcut.LOCAL)
+//@EnableGemfireCaching
 public class DemoApplication {
 
 	public static void main(String[] args) {
