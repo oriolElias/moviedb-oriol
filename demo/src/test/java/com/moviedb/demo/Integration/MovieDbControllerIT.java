@@ -3,6 +3,7 @@ package com.moviedb.demo.Integration;
 import com.moviedb.demo.Controller.MovieDbController;
 import org.apache.geode.internal.Assert;
 import org.h2.jdbcx.JdbcDataSource;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +20,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -63,7 +65,25 @@ public class MovieDbControllerIT {
 
     @Test
     void GIVEN_apiConfiguration_WHEN_MockMvc_THEN_VerifyResponse() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/api/configuration")).andDo(print()).andExpect(status().isOk()).andReturn();
+        //GIVEN
+        ResultActions request = mockMvc.perform(get("/api/configuration"));
+
+        //WHEN
+        MvcResult mvcResult = request.andDo(print()).andExpect(status().isOk()).andReturn();
+
+        //THEN
+        assertEquals("application/json",mvcResult.getResponse().getContentType());
+    }
+
+    @Test
+    void GIVEN_apiGenreMovieList_WHEN_MockMvc_THEN_VerifyResponse() throws Exception {
+        //GIVEN
+        ResultActions request = mockMvc.perform(get("/api/genre/movie/list"));
+
+        //WHEN
+        MvcResult mvcResult = request.andDo(print()).andExpect(status().isOk()).andReturn();
+
+        //THEN
         assertEquals("application/json",mvcResult.getResponse().getContentType());
     }
 
