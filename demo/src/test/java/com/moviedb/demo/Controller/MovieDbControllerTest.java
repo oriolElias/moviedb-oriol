@@ -1,9 +1,9 @@
 package com.moviedb.demo.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.moviedb.demo.Entity.UserMovie;
-import com.moviedb.demo.Repository.UserMovieRepository;
-import com.moviedb.demo.Service.MovieDbService;
+import com.moviedb.demo.Repository.*;
+import com.moviedb.demo.Service.*;
+import com.moviedb.demo.Entity.*;
 import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

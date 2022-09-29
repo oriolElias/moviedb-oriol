@@ -19,7 +19,7 @@ public class UserMovie {
     @Id
     @Column(name="movieid",nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    Integer id;
     String username;
     String movie;
 

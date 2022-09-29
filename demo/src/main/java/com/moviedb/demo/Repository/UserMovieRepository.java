@@ -1,6 +1,6 @@
 package com.moviedb.demo.Repository;
 
-import com.moviedb.demo.Entity.UserMovie;
+import com.moviedb.demo.Entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
