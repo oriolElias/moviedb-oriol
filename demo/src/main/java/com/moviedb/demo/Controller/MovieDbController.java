@@ -2,7 +2,7 @@ package com.moviedb.demo.Controller;
 
 import com.moviedb.demo.Entity.UserMovie;
 import com.moviedb.demo.Repository.UserMovieRepository;
-import com.moviedb.demo.Service.MovieDbService;
+import com.moviedb.demo.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
