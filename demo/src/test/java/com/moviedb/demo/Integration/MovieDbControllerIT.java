@@ -87,4 +87,42 @@ public class MovieDbControllerIT {
         assertEquals("application/json",mvcResult.getResponse().getContentType());
     }
 
+    @Test
+    void GIVEN_apiMoviePopular_WHEN_MockMvc_THEN_VerifyRepsonse() throws Exception{
+        //GIVEN
+        ResultActions request = mockMvc.perform(get("/api/movie/popular"));
+
+        //WHEN
+        MvcResult mvcResult = request.andDo(print()).andExpect(status().isOk()).andReturn();
+
+        //THEN
+        assertEquals("application/json",mvcResult.getResponse().getContentType());
+    }
+
+    @Test
+    void GIVEN_apiMovieTopRated_WHEN_MockMvc_THEN_VerifyRepsonse() throws Exception{
+        //GIVEN
+        ResultActions request = mockMvc.perform(get("/api/movie/top_rated"));
+
+        //WHEN
+        MvcResult mvcResult = request.andDo(print()).andExpect(status().isOk()).andReturn();
+
+        //THEN
+        assertEquals("application/json",mvcResult.getResponse().getContentType());
+    }
+
+    @Test
+    void GIVEN_apiMovieById_WHEN_MockMvc_THEN_VerifyRepsonse() throws Exception{
+        //GIVEN
+        int id = 500;
+        ResultActions request = mockMvc.perform(get("/api/movie/{movie_id}",id));
+
+        //WHEN
+        MvcResult mvcResult = request.andDo(print()).andExpect(status().isOk()).andReturn();
+
+        //THEN
+        assertEquals("application/json",mvcResult.getResponse().getContentType());
+    }
+
+    
 }
