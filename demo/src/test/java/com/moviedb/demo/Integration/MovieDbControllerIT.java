@@ -124,5 +124,69 @@ public class MovieDbControllerIT {
         assertEquals("application/json",mvcResult.getResponse().getContentType());
     }
 
-    
+    @Test
+    void GIVEN_apiMovieByIdCredits_WHEN_MockMvc_THEN_VerifyRepsonse() throws Exception{
+        //GIVEN
+        int id = 500;
+        ResultActions request = mockMvc.perform(get("/api/movie/{movie_id}/credits",id));
+
+        //WHEN
+        MvcResult mvcResult = request.andDo(print()).andExpect(status().isOk()).andReturn();
+
+        //THEN
+        assertEquals("application/json",mvcResult.getResponse().getContentType());
+    }
+
+    @Test
+    void GIVEN_apiMovieByIdImages_WHEN_MockMvc_THEN_VerifyRepsonse() throws Exception{
+        //GIVEN
+        int id = 500;
+        ResultActions request = mockMvc.perform(get("/api/movie/{movie_id}/images",id));
+
+        //WHEN
+        MvcResult mvcResult = request.andDo(print()).andExpect(status().isOk()).andReturn();
+
+        //THEN
+        assertEquals("application/json",mvcResult.getResponse().getContentType());
+    }
+
+    @Test
+    void GIVEN_apiMovieByIdKeywords_WHEN_MockMvc_THEN_VerifyRepsonse() throws Exception{
+        //GIVEN
+        int id = 500;
+        ResultActions request = mockMvc.perform(get("/api/movie/{movie_id}/keywords",id));
+
+        //WHEN
+        MvcResult mvcResult = request.andDo(print()).andExpect(status().isOk()).andReturn();
+
+        //THEN
+        assertEquals("application/json",mvcResult.getResponse().getContentType());
+    }
+
+    @Test
+    void GIVEN_apiMovieByIdRecommendations_WHEN_MockMvc_THEN_VerifyRepsonse() throws Exception{
+        //GIVEN
+        int id = 500;
+        ResultActions request = mockMvc.perform(get("/api/movie/{movie_id}/recommendations",id));
+
+        //WHEN
+        MvcResult mvcResult = request.andDo(print()).andExpect(status().isOk()).andReturn();
+
+        //THEN
+        assertEquals("application/json",mvcResult.getResponse().getContentType());
+    }
+
+    @Test
+    void GIVEN_apiMovieByIdSimilar_WHEN_MockMvc_THEN_VerifyRepsonse() throws Exception{
+        //GIVEN
+        int id = 500;
+        ResultActions request = mockMvc.perform(get("/api/movie/{movie_id}/similar",id));
+
+        //WHEN
+        MvcResult mvcResult = request.andDo(print()).andExpect(status().isOk()).andReturn();
+
+        //THEN
+        assertEquals("application/json",mvcResult.getResponse().getContentType());
+    }
+
 }
