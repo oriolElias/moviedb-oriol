@@ -50,7 +50,7 @@ public class MovieController {
 
 	@GetMapping("/api/movie/{id}")
 	public Object findMovieByID(@AuthenticationPrincipal UserDetails user, @PathVariable int id) {
-		System.out.println(id);
+
 		String movieid = Integer.toString(id);
 		UserMovie userMovie = userMovieRepository.findByUsernameAndMovie(user.getUsername(), movieid).orElse(null);
 

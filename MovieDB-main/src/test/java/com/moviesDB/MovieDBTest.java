@@ -96,13 +96,8 @@ class MovieDBTest {
 		Integer id = 550;
 		UserMovie userMovie = new UserMovie();
 
-		Principal principal = new Principal() {
-			@Override
-			public String getName() {
-				return "admin";
-			}
-		};
-
+		Principal principal = () -> "admin";
+		
 		given(userMovieRepository.findByUsernameAndMovie(principal.getName(), id.toString()))
 				.willReturn(Optional.of(userMovie));
 		given(userMovieRepository.save(userMovie)).willAnswer((invocation) -> invocation.getArgument(0));
@@ -115,7 +110,6 @@ class MovieDBTest {
 				.andExpect(jsonPath("$.favorite", is(IsNull.nullValue())))
 				.andExpect(jsonPath("$.personal_rating", is(IsNull.nullValue())))
 				.andExpect(jsonPath("$.notes", is(IsNull.nullValue())));
-
 	}
 
 	@Test
